@@ -1,3 +1,3 @@
 FROM scratch
 
-COPY ./sample.txt /sample.txt
+COPY ./LICENSE /sample.txt
