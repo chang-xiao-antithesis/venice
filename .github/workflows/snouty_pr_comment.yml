@@ -34,7 +34,6 @@ jobs:
     steps:
       - run: |
           echo This is the $COMMENT
-
       - name: Download Snouty
         run: |
           sudo apt-get update
@@ -47,9 +46,6 @@ jobs:
       - name: Install Snouty requirements
         run: $HOME/install.sh
 
-      # Debug: See what we checked out
-      # - run: |
-      #     echo $(ls -lart $GITHUB_WORKSPACE)
       - name: Check out the repo first # Check out the main branch look for .antithesis/env
       uses: actions/checkout@v4
 
@@ -72,14 +68,8 @@ jobs:
           username: _json_key
           password: ${{ secrets.ANTITHESIS_GAR_JSON_KEY }}
 
-      # Finding buildable services from PR comment and dumping into
-      # $HOME/buildables.sh
       - name: 2. Finding buildables
         run: python3 $HOME/snouty.py find_buildable_path
-
-      # Debug: See if we built successfully
-      # - run: |
-      #     echo $(ls $HOME)
 
       - name: 3. Building + Pushing images
         run: $HOME/build.sh
