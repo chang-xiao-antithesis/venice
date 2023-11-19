@@ -47,7 +47,7 @@ jobs:
         run: $HOME/install.sh
 
       - name: Check out the repo first # Check out the main branch look for .antithesis/env
-      uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       # Running this will populate additional environment variables
       # from /.antithesis/env as well as the pull request
