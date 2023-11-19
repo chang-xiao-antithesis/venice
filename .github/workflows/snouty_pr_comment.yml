@@ -47,20 +47,18 @@ jobs:
       - name: Install Snouty requirements
         run: $HOME/install.sh
 
-      - name: Check out the repository
-        uses: actions/checkout@v4
-
-      # Debug: See what we checked out
-      # - run: |
-      #     echo $(ls -lart $GITHUB_WORKSPACE)
-
       # Running this will populate additional environment variables
-      # from /.antithesis/env
+      # from /.antithesis/env as well as the pull request
       # that github actions can access include:
-      # REGISTRY, REPOSITORY, WEBHOOK_USER, WEBHOOK_URL
+      # REGISTRY, REPOSITORY, WEBHOOK_USER, WEBHOOK_URL, ANT_PR_BRANCH
       - name: 1. Merge ENVARs
         run: python3 $HOME/snouty.py populate_envars
 
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.ANT_PR_BRANCH }}
+    
       - name: Login to GAR
         uses: docker/login-action@v3
         with:
@@ -68,14 +66,8 @@ jobs:
           username: _json_key
           password: ${{ secrets.ANTITHESIS_GAR_JSON_KEY }}
 
-      # Finding buildable services from PR comment and dumping into
-      # $HOME/buildables.sh
       - name: 2. Finding buildables
         run: python3 $HOME/snouty.py find_buildable_path
-
-      # Debug: See if we built successfully
-      # - run: |
-      #     echo $(ls $HOME)
 
       - name: 3. Building + Pushing images
         run: $HOME/build.sh
