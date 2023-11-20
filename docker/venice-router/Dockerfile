@@ -21,7 +21,7 @@ RUN mkdir -p ${VENICE_DIR}/bin && mkdir -p ${VENICE_DIR}/configs
 WORKDIR ${VENICE_DIR}
 
 COPY --from=base /opt/venice/src/services/venice-router/build/libs/venice-router-all.jar bin/venice-router-all.jar
-COPY docker/venice-router/single-dc-configs configs/single-dc
-COPY docker/venice-router/multi-dc-configs configs/multi-dc
+COPY docker/venice-router/single-dc-configs configs/single-dc-configs
+COPY docker/venice-router/multi-dc-configs configs/multi-dc-configs
 
 CMD java -jar bin/venice-router-all.jar configs/single-dc/router.properties

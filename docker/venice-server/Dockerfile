@@ -22,9 +22,9 @@ WORKDIR ${VENICE_DIR}
 
 COPY --from=base /opt/venice/src/services/venice-server/build/libs/venice-server-all.jar bin/venice-server-all.jar
 # COPY *py bin/
-COPY docker/venice-server/single-dc-configs configs/single-dc
+COPY docker/venice-server/single-dc-configs configs/single-dc-configs
 
-COPY docker/venice-server/multi-dc-configs configs/multi-dc
+COPY docker/venice-server/multi-dc-configs configs/multi-dc-configs
 
 RUN chmod +x ${VENICE_DIR}/bin/venice-server-all.jar
 
