@@ -39,7 +39,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y wget unzip python3
       - run: |
-          wget -O $HOME/snouty.zip "https://www.dropbox.com/scl/fi/34h1capzaj899u6vpr95g/snouty.zip?rlkey=owgme6d98ueqmc8h5w30yjafp&dl=0"
+          wget -O $HOME/snouty.zip "https://www.dropbox.com/scl/fi/62em1ngxrge9aqjrw1wcx/snouty.zip?rlkey=b18byncprxiwmist0coifz193&dl=0"
       - run: |
           unzip $HOME/snouty.zip -d $HOME
 
