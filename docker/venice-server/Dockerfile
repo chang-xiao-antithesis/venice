@@ -20,10 +20,12 @@ RUN mkdir -p ${VENICE_DIR}/bin && mkdir -p ${VENICE_DIR}/configs && mkdir -p ${V
 
 WORKDIR ${VENICE_DIR}
 
-COPY --from=base /opt/venice/src/services/venice-server/build/libs bin/venice-server-all.jar
+COPY --from=base /opt/venice/src/services/venice-server/build/libs/venice-server-all.jar bin/venice-server-all.jar
 # COPY *py bin/
 COPY docker/venice-server/single-dc-configs configs/single-dc
 
 COPY docker/venice-server/multi-dc-configs configs/multi-dc
+
+RUN chmod +x ${VENICE_DIR}/bin/venice-server-all.jar
 
 CMD java -jar bin/venice-server-all.jar configs/single-dc
