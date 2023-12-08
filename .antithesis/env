@@ -1,5 +1,5 @@
 REGISTRY=us-central1-docker.pkg.dev
 REPOSITORY=molten-verve-216720/venice-repository
 WEBHOOK_USER=venice
-WEBHOOK_URL=
+WEBHOOK_URL=https://venice.antithesis.com/api/v1/launch_experiment/venice__mdc-network__github-pr
 BUILD_CONTEXT=../../
