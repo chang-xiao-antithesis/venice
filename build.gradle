@@ -733,17 +733,17 @@ ext.createDiffFile = { ->
       ':!internal/alpini/*'
   ]
   def file = Files.createTempFile(URLEncoder.encode(project.name, 'UTF-8'), '.diff').toFile()
-  def diffBase = "${git.getUpstreamRemote()}/main"
-  def command = [
-      'git', 'diff', "${diffBase}...", '--no-color', '--minimal', '--', '.'
-  ]
-  command.addAll(exclusionFilter)
-  file.withOutputStream { out ->
-    exec {
-      commandLine command
-      standardOutput = out
-    }
-  }
+  // def diffBase = "${git.getUpstreamRemote()}/main"
+  // def command = [
+  //     'git', 'diff', "${diffBase}...", '--no-color', '--minimal', '--', '.'
+  // ]
+  // command.addAll(exclusionFilter)
+  // file.withOutputStream { out ->
+  //   exec {
+  //     commandLine command
+  //     standardOutput = out
+  //   }
+  // }
 
   return file
 }
