@@ -22,7 +22,7 @@ WORKDIR ${VENICE_DIR}
 
 COPY --from=base /opt/venice/src/services/venice-controller/build/libs/venice-controller-all.jar bin/venice-controller-all.jar
 # COPY *py bin/
-COPY docker/venice-controller/single-dc-configs configs/single-dc
-COPY docker/venice-controller/multi-dc-configs configs/multi-dc
+COPY docker/venice-controller/single-dc-configs configs/single-dc-configs
+COPY docker/venice-controller/multi-dc-configs configs/multi-dc-configs
 
 CMD java -jar bin/venice-controller-all.jar configs/single-dc/cluster.properties configs/single-dc/controller.properties
