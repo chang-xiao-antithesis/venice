@@ -732,21 +732,22 @@ ext.createDiffFile = { ->
       // Other files that have tests but are not executed in the regular unit test task
       ':!internal/alpini/*'
   ]
-  // def file = Files.createTempFile(URLEncoder.encode(project.name, 'UTF-8'), '.diff').toFile()
-//   def diffBase = "${git.getUpstreamRemote()}/main"
-//   def command = [
-//       'git', 'diff', "${diffBase}...", '--no-color', '--minimal', '--', '.'
-//   ]
-//   command.addAll(exclusionFilter)
-//   file.withOutputStream { out ->
-//     exec {
-//       commandLine command
-//       standardOutput = out
-//     }
-//   }
 
-//   return file
-// }
+  def file = Files.createTempFile(URLEncoder.encode(project.name, 'UTF-8'), '.diff').toFile()
+  // def diffBase = "${git.getUpstreamRemote()}/main"
+  // def command = [
+  //     'git', 'diff', "${diffBase}...", '--no-color', '--minimal', '--', '.'
+  // ]
+  // command.addAll(exclusionFilter)
+  // file.withOutputStream { out ->
+  //   exec {
+  //     commandLine command
+  //     standardOutput = out
+  //   }
+  // }
+
+  return file
+}
 
 // for a given xml jacoco report, parse it and print out the branch coverage
 ext.parseJacocoXml = { filePath ->
