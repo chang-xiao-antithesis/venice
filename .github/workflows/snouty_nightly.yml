@@ -67,5 +67,5 @@ jobs:
       - name: 3. Building + Pushing images
         run: $HOME/build.sh
 
-      # - name: 5. Run webhook
-      #   run: python3 $HOME/snouty.py webhook
+      - name: 5. Run webhook
+        run: python3 $HOME/snouty.py webhook

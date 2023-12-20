@@ -4,4 +4,4 @@ WEBHOOK_USER=venice
 WEBHOOK_URL=https://venice.antithesis.com/api/v1/launch_experiment/venice__mdc-network__github-pr
 BUILD_CONTEXT=/
 ANT_NIGHTLY_BRANCH=main
-ANT_NIGHTLY_BUILD=snouty test config-test
+ANT_NIGHTLY_BUILD=snouty test venice-server venice-router venice-controller venice-client
