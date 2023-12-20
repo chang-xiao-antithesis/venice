@@ -59,7 +59,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: _json_key
-          password: ${{ secrets.ANT_GAR_JSON_KEY }}
+          password: ${{ secrets.ANTITHESIS_GAR_JSON_KEY }}
 
       - name: 2. Finding buildables
         run: python3 $HOME/snouty.py find_buildable_path
