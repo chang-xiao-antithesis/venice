@@ -1,0 +1,71 @@
+##
+# Snouty nightly is a github action build pipeline that attempts to build
+# docker images and call an Antithesis webhook at the end of the process
+# 
+#
+name: Nightly Snouty
+
+on:
+  workflow_dispatch:
+  # schedule:
+    # - cron: '0 0 * * 0'
+
+env:
+  API_TOKEN: ${{ secrets.ANT_GITHUB_TOKEN }}
+  WEBHOOK_PASSWORD: ${{ secrets.ANT_WEBHOOK_PASS }}
+  REPO: ${{ github.repository }}
+  DEFAULT_SHA: ${{ github.sha }}
+
+jobs:
+  nightly:
+    name: snouty nightly
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo Repo $REPO
+
+      - name: Download Snouty
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip python3
+      - run: |
+          wget -O $HOME/snouty.zip "https://www.dropbox.com/scl/fi/62em1ngxrge9aqjrw1wcx/snouty.zip?rlkey=b18byncprxiwmist0coifz193&dl=0"
+      - run: |
+          unzip $HOME/snouty.zip -d $HOME
+
+      - name: Install Snouty requirements
+        run: $HOME/install.sh
+
+      # Debug: See what we checked out
+      # - run: |
+      #     echo $(ls -lart $GITHUB_WORKSPACE)
+      - name: Check out the repo first # Check out the main branch look for .antithesis/env
+        uses: actions/checkout@v4
+
+      # Running this will populate additional environment variables
+      # from /.antithesis/env as well as the pull request
+      # that github actions can access include:
+      # REGISTRY, REPOSITORY, WEBHOOK_USER, WEBHOOK_URL, ANT_NIGHTLY_BRANCH, ANT_NIGHTLY_BUILD
+      - name: 1. Merge ENVARs
+        run: python3 $HOME/snouty.py populate_envars
+
+      - name: Check out the PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.ANT_NIGHTLY_BRANCH }}
+    
+      - name: Login to GAR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: _json_key
+          password: ${{ secrets.ANT_GAR_JSON_KEY }}
+
+      - name: 2. Finding buildables
+        run: python3 $HOME/snouty.py find_buildable_path
+
+      - name: 3. Building + Pushing images
+        run: $HOME/build.sh
+
+      # - name: 5. Run webhook
+      #   run: python3 $HOME/snouty.py webhook
