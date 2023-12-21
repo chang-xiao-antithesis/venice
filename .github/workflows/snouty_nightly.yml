@@ -12,7 +12,7 @@ on:
 
 env:
   API_TOKEN: ${{ secrets.ANT_GITHUB_TOKEN }}
-  WEBHOOK_PASSWORD: ${{ secrets.ANT_WEBHOOK_PASS }}
+  WEBHOOK_PASSWORD: ${{ secrets.ANT_VENICE_WEBHOOK_PASS }}
   REPO: ${{ github.repository }}
   DEFAULT_SHA: ${{ github.sha }}
 
