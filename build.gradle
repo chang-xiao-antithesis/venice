@@ -732,6 +732,7 @@ ext.createDiffFile = { ->
       // Other files that have tests but are not executed in the regular unit test task
       ':!internal/alpini/*'
   ]
+
   def file = Files.createTempFile(URLEncoder.encode(project.name, 'UTF-8'), '.diff').toFile()
   // def diffBase = "${git.getUpstreamRemote()}/main"
   // def command = [
